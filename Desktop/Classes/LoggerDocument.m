@@ -36,6 +36,7 @@
 #import "LoggerNativeMessage.h"
 #import "LoggerAppDelegate.h"
 #import "LoggerTCPConnection.h"
+#import "LoggerMainController.h"
 
 @implementation LoggerDocument
 
@@ -297,29 +298,28 @@
 		[self.attachedLogs addObject:connection];
 
 		NSMutableArray *msgs = [[NSMutableArray alloc] init];
-        long dataLength = data.length;
-        const uint8_t *p = data.bytes;
-        while (dataLength)
-        {
-            // check whether we have a full message
-            uint32_t length;
-            memcpy(&length, p, 4);
-            length = ntohl(length);
-            if (dataLength < (length + 4))
-                break;        // incomplete last message
+		long dataLength = [data length];
+		const uint8_t *p = [data bytes];
+		while (dataLength)
+		{
+			// check whether we have a full message
+			uint32_t length;
+			memcpy(&length, p, 4);
+			length = ntohl(length);
+			if (dataLength < (length + 4))
+				break;		// incomplete last message
+			
+			// get one message
+			NSData *subset = [NSData dataWithBytesNoCopy:(unsigned char *)p + 4 length:length];
+			LoggerMessage *message = [[LoggerNativeMessage alloc] initWithData:(NSData *)subset connection:connection];
+			if (message.type == LOGMSG_TYPE_CLIENTINFO)
+				[connection clientInfoReceived:message];
+			else
+				[msgs addObject:message];
 
-            // get one message
-            NSData *subset = [NSData dataWithBytesNoCopy:(unsigned char *)p + 4 length:length freeWhenDone:NO];
-            LoggerMessage *message = [[LoggerNativeMessage alloc] initWithData:(NSData *)subset connection:connection];
-            if (message.type == LOGMSG_TYPE_CLIENTINFO) {
-                [connection clientInfoReceived:message];
-            } else {
-                [msgs addObject:message];
-            }
-
-            dataLength -= length + 4;
-            p += length + 4;
-        }
+			dataLength -= length + 4;
+			p += length + 4;
+		}
 		if ([msgs count])
 			[connection messagesReceived:msgs];
 	}
@@ -331,7 +331,6 @@
 {
 	LoggerWindowController *controller = [[LoggerWindowController alloc] initWithWindowNibName:@"LoggerWindow"];
 	[self addWindowController:controller];
-
 	// force assignment of the current connection to the main window
 	self.indexOfCurrentVisibleLog = @([self.attachedLogs indexOfObjectIdenticalTo:self.currentConnection]);
 }

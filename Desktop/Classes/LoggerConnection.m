@@ -228,7 +228,9 @@ char sConnectionAssociatedObjectKey = 1;
 	// while the UI reads them
 	dispatch_async(dispatch_get_main_queue(), ^{
 		NSDictionary *parts = message.parts;
-		id value = parts[@PART_KEY_CLIENT_NAME];
+        NSString *name = parts[@PART_KEY_CLIENT_NAME];
+        NSString *uniq = parts[@PART_KEY_UNIQUEID];
+		id value = [NSString stringWithFormat:@"%@-%@",uniq,name];
 		if (value != nil)
 			self.clientName = value;
 		value = parts[@PART_KEY_CLIENT_VERSION];
@@ -332,16 +334,7 @@ char sConnectionAssociatedObjectKey = 1;
 	if ((self = [super init]) != nil)
 	{
 		_clientName = [aDecoder decodeObjectForKey:@"_clientName"];
-		// When the code was converted to ARC, some of the keys have changed.
-		// In order to be backward compatible, we also need to check if the coder
-		// is using the old keys.
-		if (_clientName == nil)
-			_clientName = [aDecoder decodeObjectForKey:@"clientName"];
-
 		_clientVersion = [aDecoder decodeObjectForKey:@"_clientVersion"];
-		if (_clientVersion == nil)
-			_clientVersion = [aDecoder decodeObjectForKey:@"clientVersion"];
-
 		_clientOSName = [aDecoder decodeObjectForKey:@"clientOSName"];
 		_clientOSVersion = [aDecoder decodeObjectForKey:@"clientOSVersion"];
 		_clientDevice = [aDecoder decodeObjectForKey:@"clientDevice"];
@@ -349,18 +342,12 @@ char sConnectionAssociatedObjectKey = 1;
 		_parentIndexesStack = [aDecoder decodeObjectForKey:@"parentIndexes"];
 		_filenames = [aDecoder decodeObjectForKey:@"_filenames"];
 		if (_filenames == nil)
-			_filenames = [aDecoder decodeObjectForKey:@"filenames"];
-		if (_filenames == nil)
 			_filenames = [[NSMutableSet alloc] init];
 		_functionNames = [aDecoder decodeObjectForKey:@"_functionNames"];
-		if (_functionNames == nil)
-			_functionNames = [aDecoder decodeObjectForKey:@"functionNames"];
 		if (_functionNames == nil)
 			_functionNames = [[NSMutableSet alloc] init];
 		objc_setAssociatedObject(aDecoder, &sConnectionAssociatedObjectKey, self, OBJC_ASSOCIATION_ASSIGN);
 		_messages = [aDecoder decodeObjectForKey:@"_messages"];
-		if (_messages == nil)
-			_messages = [aDecoder decodeObjectForKey:@"messages"];
 		_reconnectionCount = [aDecoder decodeIntForKey:@"reconnectionCount"];
 		_restoredFromSave = YES;
 		

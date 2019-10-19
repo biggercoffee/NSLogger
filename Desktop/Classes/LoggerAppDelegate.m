@@ -37,6 +37,7 @@
 #import "LoggerStatusWindowController.h"
 #import "LoggerPrefsWindowController.h"
 #import "LoggerMessageCell.h"
+#import "LoggerMainController.h"
 
 NSString * const kPrefKeepMultipleRuns = @"keepMultipleRuns";
 NSString * const kPrefCloseWithoutSaving = @"closeWithoutSaving";
@@ -48,6 +49,10 @@ NSString * const kPrefBonjourServiceName = @"bonjourServiceName";
 NSString * const kPrefClientApplicationSettings = @"clientApplicationSettings";
 
 NSString * const kPref_ApplicationFilterSet = @"appFilterSet";
+
+@interface LoggerAppDelegate ()
+@property (nonatomic,strong) LoggerMainController *mainController;
+@end
 
 @implementation LoggerAppDelegate
 @synthesize transports, filterSets, filtersSortDescriptors, statusController;
@@ -258,7 +263,10 @@ NSString * const kPref_ApplicationFilterSet = @"appFilterSet";
 	t.listenerPort = [[NSUserDefaults standardUserDefaults] integerForKey:kPrefDirectTCPIPResponderPort];
 	t.secure = YES;
 	[transports addObject:t];
-
+    
+    self.mainController = [[LoggerMainController alloc] initWithWindowNibName:@"LoggerMainController"];
+    [self.mainController showWindow:self];
+    
 	// start transports
 	[self performSelector:@selector(startStopTransports) withObject:nil afterDelay:0];
 }
@@ -282,31 +290,32 @@ NSString * const kPref_ApplicationFilterSet = @"appFilterSet";
 {
 	// we are being called on the main thread (using dispatch_sync() from transport, so take care)
 	assert([NSThread isMainThread]);
+    [self.mainController addButtonWithTitle:aConnection.clientName block:^{
+        // Go through all open documents,
+        // Detect reconnection from a previously disconnected client
+        NSDocumentController *docController = [NSDocumentController sharedDocumentController];
+        for (LoggerDocument *doc in [docController documents])
+        {
+            if (![doc isKindOfClass:[LoggerDocument class]])
+                continue;
+            for (LoggerConnection *c in doc.attachedLogs)
+            {
+                if (c != aConnection && [aConnection isNewRunOfClient:c])
+                {
+                    // recycle this document window, bring it to front
+                    aConnection.reconnectionCount = ((LoggerConnection *)[doc.attachedLogs lastObject]).reconnectionCount + 1;
+                    [doc addConnection:aConnection];
+                    return;
+                }
+            }
+        }
 
-	// Go through all open documents,
-	// Detect reconnection from a previously disconnected client
-	NSDocumentController *docController = [NSDocumentController sharedDocumentController];
-	for (LoggerDocument *doc in [docController documents])
-	{
-		if (![doc isKindOfClass:[LoggerDocument class]])
-			continue;
-		for (LoggerConnection *c in doc.attachedLogs)
-		{
-			if (c != aConnection && [aConnection isNewRunOfClient:c])
-			{
-				// recycle this document window, bring it to front
-				aConnection.reconnectionCount = ((LoggerConnection *)[doc.attachedLogs lastObject]).reconnectionCount + 1;
-				[doc addConnection:aConnection];
-				return;
-			}
-		}
-	}
-
-	// Instantiate a new window for this connection
-	LoggerDocument *doc = [[LoggerDocument alloc] initWithConnection:aConnection];
-	[docController addDocument:doc];
-	[doc makeWindowControllers];
-	[doc showWindows];
+        // Instantiate a new window for this connection
+        LoggerDocument *doc = [[LoggerDocument alloc] initWithConnection:aConnection];
+        [docController addDocument:doc];
+        [doc makeWindowControllers];
+        [doc showWindows];
+    }];
 }
 
 - (NSMutableArray *)defaultFilters

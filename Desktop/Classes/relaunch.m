@@ -41,7 +41,7 @@
 - (void)relaunch
 {
 	NSString *path = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:executablePath length:strlen(executablePath)];
-	[NSWorkspace.sharedWorkspace launchApplication:path];
+	[[NSWorkspace sharedWorkspace] launchApplication:path];
 	exit(0);
 }
 
@@ -52,10 +52,11 @@ int main (int argc, const char * argv[])
 	if (argc != 3)
 		return EXIT_FAILURE;
 	
-    @autoreleasepool {
-        [[[TerminationListener alloc] initWithExecutablePath:argv[1] parentProcessId:atoi(argv[2])] autorelease];
-        [NSApplication.sharedApplication run];
-    }
-
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];	
+	[[[TerminationListener alloc] initWithExecutablePath:argv[1] parentProcessId:atoi(argv[2])] autorelease];
+	[[NSApplication sharedApplication] run];
+	
+	[pool drain];
+	
 	return EXIT_SUCCESS;
 }

@@ -52,6 +52,8 @@
 		3DE8CE7E12AE4A67005C83D0 /* relaunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8CE7312AE49E7005C83D0 /* relaunch.m */; };
 		3DE8CEEC12AE50A8005C83D0 /* relaunch in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3DE8CE7812AE4A17005C83D0 /* relaunch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3DEE27B712B773D8009ADA67 /* LoggerNativeTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C75550F4026D2006B55AD /* LoggerNativeTransport.m */; };
+		84687DE2234E01BD00B08C66 /* LoggerMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84687DE0234E01BD00B08C66 /* LoggerMainController.m */; };
+		84687DE3234E01BD00B08C66 /* LoggerMainController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84687DE1234E01BD00B08C66 /* LoggerMainController.xib */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		B9C3CDBB16A86473005484D4 /* NSColor+NSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C3CDBA16A86472005484D4 /* NSColor+NSLogger.m */; };
@@ -169,8 +171,11 @@
 		3DE8CE7312AE49E7005C83D0 /* relaunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = relaunch.m; path = Classes/relaunch.m; sourceTree = "<group>"; };
 		3DE8CE7812AE4A17005C83D0 /* relaunch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = relaunch; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFECC4A21B9DB3D0040C795 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		84687DDF234E01BD00B08C66 /* LoggerMainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoggerMainController.h; sourceTree = "<group>"; };
+		84687DE0234E01BD00B08C66 /* LoggerMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoggerMainController.m; sourceTree = "<group>"; };
+		84687DE1234E01BD00B08C66 /* LoggerMainController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoggerMainController.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* NSLogger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSLogger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* 日了个志.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "日了个志.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C3CDB916A86472005484D4 /* NSColor+NSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+NSLogger.h"; path = "Classes/NSColor+NSLogger.h"; sourceTree = "<group>"; };
 		B9C3CDBA16A86472005484D4 /* NSColor+NSLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+NSLogger.m"; path = "Classes/NSColor+NSLogger.m"; sourceTree = "<group>"; };
 		D8D4B0F9DF2208FDCE15754B /* LoggerTCPTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerTCPTransport.m; path = Classes/LoggerTCPTransport.m; sourceTree = "<group>"; };
@@ -205,6 +210,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				84687DDE234E019E00B08C66 /* main */,
 				3DAB6E2C0F2FA0BA00BB3236 /* LoggerAppDelegate.h */,
 				3DAB6E2D0F2FA0BA00BB3236 /* LoggerAppDelegate.m */,
 				3D6A37C31263998A00D0EC3A /* LoggerStatusWindowController.h */,
@@ -255,7 +261,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* NSLogger.app */,
+				8D1107320486CEB800E47090 /* 日了个志.app */,
 				3DE8CE7812AE4A17005C83D0 /* relaunch */,
 			);
 			name = Products;
@@ -405,6 +411,16 @@
 			name = Relaunch;
 			sourceTree = "<group>";
 		};
+		84687DDE234E019E00B08C66 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				84687DDF234E01BD00B08C66 /* LoggerMainController.h */,
+				84687DE0234E01BD00B08C66 /* LoggerMainController.m */,
+				84687DE1234E01BD00B08C66 /* LoggerMainController.xib */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
 		D8D4B43E16C6E76466816769 /* JSON log format */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,7 +468,7 @@
 			name = NSLogger;
 			productInstallPath = "$(HOME)/Applications";
 			productName = NSLogger;
-			productReference = 8D1107320486CEB800E47090 /* NSLogger.app */;
+			productReference = 8D1107320486CEB800E47090 /* 日了个志.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -497,6 +513,7 @@
 			files = (
 				3D6A34AB1262FD5D00D0EC3A /* InfoPlist.strings in Resources */,
 				3D6A34AC1262FD6300D0EC3A /* LoggerWindow.xib in Resources */,
+				84687DE3234E01BD00B08C66 /* LoggerMainController.xib in Resources */,
 				3D6A34AD1262FD6C00D0EC3A /* MainMenu.xib in Resources */,
 				3D6A37C9126399D700D0EC3A /* LoggerStatus.xib in Resources */,
 				3D027B2C12663E1200E6F241 /* LoggerPrefs.xib in Resources */,
@@ -566,6 +583,7 @@
 				3DBB562712829BCC004F729D /* LoggerMarkerCell.m in Sources */,
 				3DEE27B712B773D8009ADA67 /* LoggerNativeTransport.m in Sources */,
 				3DA319AB12E37088003F68E6 /* LoggerTableView.m in Sources */,
+				84687DE2234E01BD00B08C66 /* LoggerMainController.m in Sources */,
 				3D8E06241306C06A0024917B /* LoggerTransportStatusCell.m in Sources */,
 				3DAC10E313ED5A7E00D5E6BA /* SSSelectableToolbar.m in Sources */,
 				3DAC10E413ED5A7E00D5E6BA /* SSSelectableToolbarItem.m in Sources */,
@@ -596,7 +614,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = ETK7NXHU9M;
+				DEVELOPMENT_TEAM = 54P38QG3HY;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -623,7 +641,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ETK7NXHU9M;
+				DEVELOPMENT_TEAM = 54P38QG3HY;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INSTALL_PATH = /usr/local/bin;
@@ -649,7 +667,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = K42G4S78CE;
+				DEVELOPMENT_TEAM = 54P38QG3HY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Third Party/HockeySDK-Mac\"",
@@ -662,8 +680,8 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.florentpillet.NSLogger;
-				PRODUCT_NAME = NSLogger;
+				PRODUCT_BUNDLE_IDENTIFIER = com.florentpillet.NSLogger.www;
+				PRODUCT_NAME = "日了个志";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
@@ -678,7 +696,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = K42G4S78CE;
+				DEVELOPMENT_TEAM = 54P38QG3HY;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Third Party/HockeySDK-Mac\"",
@@ -689,8 +707,8 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.florentpillet.NSLogger;
-				PRODUCT_NAME = NSLogger;
+				PRODUCT_BUNDLE_IDENTIFIER = com.florentpillet.NSLogger.www;
+				PRODUCT_NAME = "日了个志";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
