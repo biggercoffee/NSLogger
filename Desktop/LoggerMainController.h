@@ -7,11 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LoggerConnection.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LoggerMainController : NSWindowController
-- (void)addButtonWithTitle:(NSString *)title block:(void(^)(void))block;
+- (void)addData:(LoggerConnection *)data;
 @end
 
 NS_ASSUME_NONNULL_END
