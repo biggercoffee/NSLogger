@@ -127,6 +127,10 @@ typedef void(^LoggerExecBlock)(void);
     if (data.connected == NO) {
         text = [text stringByAppendingString:@"(断开链接)"];
     }
+    button.layer.backgroundColor = [[NSColor blueColor] colorWithAlphaComponent:.5].CGColor;
+    if (row %2 == 0) {
+        button.layer.backgroundColor = [[NSColor redColor] colorWithAlphaComponent:.5].CGColor;
+    }
     [button setTitle:text];
     return cell;
     
