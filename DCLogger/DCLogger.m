@@ -1,9 +1,4 @@
-//
-//  DCLogger.m
-//  HuYuLottery
-//
-//  Created by admin on 2019/10/16.
-//
+
 
 #import "DCLogger.h"
 #import <objc/runtime.h>

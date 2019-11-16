@@ -1,9 +1,3 @@
-//
-//  DCLogger.h
-//  HuYuLottery
-//
-//  Created by admin on 2019/10/16.
-//
 
 #import <Foundation/Foundation.h>
 
